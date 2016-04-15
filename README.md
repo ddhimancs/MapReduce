@@ -44,13 +44,15 @@ b) Precipitation File : I am also filtering the hours 12 AM and 7 AM in this map
   ii) Value (Text):  An identifier to indicate the source of input(using ‘PT’ for the station file) + precipitation
 
 I’m using StationMapper.java to process Station file and PrecipitationMapper.java to process Precipitation file.
-In map reduce API, I’m using MulipleInputFormat to specify which input to go into which mapper. But the ouput key value pairs from the mapper go into the same reducer and I am appending the values ‘ST’ or ‘PT’ to help identify in reducer.
+In map reduce API, I’m using MulipleInputFormat to specify which input to go into which mapper. The ouput key value pairs from the mapper go into the same reducer and I am appending the values ‘ST’ or ‘PT’ to help identify in reducer.
 
-2) In reducer file msaPopReducer.java I am using distributed cache to distribute the msa_population. It parse the file and load into HashMap with Key being the MSA name and value is population. On the reducer every key would be having two values one with prefix ‘ST’ and other ‘PT’. Identify the records and from ST get the MSA name corresponding to the WBAN (input key) and from PT get the prescipitation. 
+2) In reducer file msaPopReducer.java I am using distributed cache to distribute the msa_population file. It parse the file and load into HashMap with Key being the MSA name and value is population. On the reducer every key would be having two values one with prefix ‘ST’ and other ‘PT’. It identify the records and from ST get the MSA name corresponding to the WBAN (input key) and from PT get the prescipitation for WBAN key. 
 
-On obtaining the population do a look up on the HashMap to get the population. Also do the aggregate of all the presipitation for that MSA. So finally the output Key values from the reducer would be as follows
-a)      Key : MSA
-b)      Value : population*sum of precipitation
+On obtaining the population do a look up on the HashMap to get the population. Also do the aggregate of all the presipitation for that WBAN. So finally the output Key values from the reducer would be as follows
+
+a)      MSA
+
+b)      population*sum of precipitation per MSA
 
 3) POM file is attached to build the project using Maven.
 
