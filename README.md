@@ -32,6 +32,7 @@ Albuquerque, NM|887077
 Alexandria, LA|153922
 
 Solution: I am doing a reduce side join with two mapper and one reducer class as follows:
+
 1) Use two different mapper class for both processing the initial input from station file and prescipitation file. The key value output is as follows:
 
 a) Station File
