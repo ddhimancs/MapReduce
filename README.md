@@ -52,9 +52,9 @@ On obtaining the population do a look up on the HashMap to get the population. A
 a)      Key : MSA
 b)      Value : population*sum of precipitation
 
-4) POM file is attached to build the project
+3) POM file is attached to build the project using Maven.
 
-5) To run the project
+4) To run the project
 population file on local drive at: /home/hdfs/msa_population.txt
 Move the presipitation file on HDFS at: /incoming/ppt
 Move the Station file on HDFS at :/incoming/station
@@ -62,7 +62,7 @@ Submit the job like this:
 
 yarn jar /home/hdfs/MapReduceJoin-1.0-SNAPSHOT.jar com.ddhiman.JoinDriver /incoming/station /incoming/ppt /incoming/output 
 
-6) Sample of Output file look locate at /incoming/output:
+5) Sample of Output file look locate at /incoming/output:
 
 NEW CASTLE, PA|	110240.68
 WILLMAR, MN|	206548.81
