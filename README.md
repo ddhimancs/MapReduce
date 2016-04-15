@@ -33,9 +33,11 @@ Alexandria, LA|153922
 
 Solution: I am doing a reduce side join with two mapper and one reducer class as follows:
 1) Use two different mapper class for both processing the initial input from station file and prescipitation file. The key value output is as follows:
+
 a) Station File
   i) Key(Text): WBAN
   ii) Values (Text): An identifier to indicate the source of input(using ‘ST’ for the station file) + MSA name
+  
 b) Precipitation File : I am also filtering the hours 12 AM and 7 AM in this mapper.
   i) Key (Text): WBAN
   ii) Value (Text):  An identifier to indicate the source of input(using ‘PT’ for the station file) + precipitation
