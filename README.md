@@ -31,7 +31,7 @@ Albany-Schenectady-Troy, NY|870716
 Albuquerque, NM|887077
 Alexandria, LA|153922
 
-Solution: I am doing a reduce side join and loading msa population in distributed cache. 
+Solution: I am doing a reduce side join with two mapper and one reducer class as follows:
 1) Use two different mapper class for both processing the initial input from station file and prescipitation file. The key value output is as follows:
 a) Station File
   i) Key(Text): WBAN
@@ -40,14 +40,10 @@ b) Precipitation File : I am also filtering the hours 12 AM and 7 AM in this map
   i) Key (Text): WBAN
   ii) Value (Text):  An identifier to indicate the source of input(using ‘PT’ for the station file) + precipitation
 
-Since two files needs to be parsed separately using two mappers. I’m using StationMapper.java to process Station file and
-PrecipitationMapper.java to process Precipitation file.
+I’m using StationMapper.java to process Station file and PrecipitationMapper.java to process Precipitation file.
 In map reduce API, I’m using MulipleInputFormat to specify which input to go into which mapper. But the ouput key value pairs from the mapper go into the same reducer and I am appending the values ‘ST’ or ‘PT’ to help identify in reducer.
 
-
-2) In reducer file msaPopReducer.java I am using distributed cache to distribute the msa_population. It parse the file and load into HashMap with Key being the MSA name and value is population.
-
-3. On the reducer every key would be having two values one with prefix ‘ST’ and other ‘PT’. Identify the records and from ST get the MSA name corresponding to the WBAN (input key) and from PT get the prescipitation. 
+2) In reducer file msaPopReducer.java I am using distributed cache to distribute the msa_population. It parse the file and load into HashMap with Key being the MSA name and value is population. On the reducer every key would be having two values one with prefix ‘ST’ and other ‘PT’. Identify the records and from ST get the MSA name corresponding to the WBAN (input key) and from PT get the prescipitation. 
 
 On obtaining the population do a look up on the HashMap to get the population. Also do the aggregate of all the presipitation for that MSA. So finally the output Key values from the reducer would be as follows
 a)      Key : MSA
@@ -71,4 +67,3 @@ BEEVILLE, TX|	89848.016
 HEREFORD, TX|	48042.555
 WICHITA FALLS, TX|	1405633.0
 BOGALUSA, LA|	473095.16
-
